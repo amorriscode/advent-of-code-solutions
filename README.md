@@ -1,6 +1,10 @@
 # [Advent of Code](https://adventofcode.com/) 🎄
 
+<<<<<<< HEAD
 This repo is used to help maintain my [JavaScript solutions](https://github.com/amorriscode/advent-of-code-solutions) for Advent of Code.
+=======
+This repo contains my solutions for the Advent of Code.
+>>>>>>> Initial commit
 
 ## Setup
 
@@ -20,12 +24,15 @@ This repo is used to help maintain my [JavaScript solutions](https://github.com/
 YEAR=20XX DAY=0X yarn new
 ```
 
+<<<<<<< HEAD
 ## Run tests while you're solve the problem
 
 ```bash
 YEAR=20XX DAY=0X yarn test --watch
 ```
 
+=======
+>>>>>>> Initial commit
 ## Display the output for a solution
 
 ```bash
