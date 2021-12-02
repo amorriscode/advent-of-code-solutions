@@ -29,26 +29,23 @@ const INSTRUCTIONS = {
   },
 }
 
-export const part1 = (input = parsedData) => {
-  const pos = [0, 0]
+const solve = (mode, input) => {
+  const pos = [0, 0, 0]
 
   input.forEach(([dir, dist]) => {
-    const mod = INSTRUCTIONS[dir][0]
+    const mod = INSTRUCTIONS[dir][mode]
     mod(pos, dist)
   })
 
   return pos[0] * pos[1]
 }
 
+export const part1 = (input = parsedData) => {
+  return solve(0, input)
+}
+
 export const part2 = (input = parsedData) => {
-  const pos = [0, 0, 0]
-
-  input.forEach(([dir, dist]) => {
-    const mod = INSTRUCTIONS[dir][1]
-    mod(pos, dist)
-  })
-
-  return pos[0] * pos[1]
+  return solve(1, input)
 }
 
 export default {
