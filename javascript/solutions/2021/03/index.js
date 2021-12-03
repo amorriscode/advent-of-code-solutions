@@ -1,81 +1,57 @@
 import { example, data } from './input'
-import { rotateMatrix } from '../../../lib'
 
-export const inputParser = (input) =>
-  input.split('\n').map((num) => num.split(''))
+export const inputParser = (input) => input.split('\n')
 
 const parsedData = inputParser(data)
 
-const findCommonBit = (num, commonType = 'most', equalVal) => {
-  let oneCount = 0
-  let zeroCount = 0
+const countBit = (nums, bit) => {
+  const counts = [0, 0]
 
-  num.forEach((bit) => {
-    if (bit === '1') {
-      oneCount++
-    } else if (bit === '0') {
-      zeroCount++
-    }
-  })
-
-  if (oneCount === zeroCount) {
-    return { bit: equalVal, count: oneCount }
+  for (const num of nums) {
+    counts[num[bit]] += 1
   }
 
-  if (commonType === 'most') {
-    return oneCount > zeroCount
-      ? { bit: '1', count: oneCount }
-      : { bit: '0', count: zeroCount }
-  }
-
-  if (commonType === 'least') {
-    return oneCount < zeroCount
-      ? { bit: '1', count: oneCount }
-      : { bit: '0', count: zeroCount }
-  }
-
-  console.error('Invalid type provided')
+  return counts
 }
 
-const getSingleNumber = (numbersMatrix, commonType, equalVal) => {
-  let rotatedNumberMatrix = numbersMatrix[0].map((_, colIndex) =>
-    numbersMatrix.map((row) => row[colIndex])
-  )
+const counter = (input, priorityBit, secondaryBit) => {
+  let nums = [...input]
 
-  let remainingNumbers = [...numbersMatrix]
-  let row = 0
+  for (let i = 0; i < input.length; i++) {
+    const [zeroCount, oneCount] = countBit(nums, i)
+    const keep = oneCount >= zeroCount ? priorityBit : secondaryBit
+    const count = Math.max(zeroCount, oneCount)
 
-  while (row < rotatedNumberMatrix.length) {
-    const { bit, count } = findCommonBit(
-      rotatedNumberMatrix[row],
-      commonType,
-      equalVal
-    )
+    nums = nums
+      .filter((num) => +num[i] !== keep)
+      .slice(0, Math.max(zeroCount, oneCount))
 
-    remainingNumbers = remainingNumbers.filter((num) => num[row] !== bit)
-
-    if (remainingNumbers.length === 1) break
-
-    row++
-
-    rotatedNumberMatrix = remainingNumbers[0].map((_, colIndex) =>
-      remainingNumbers.map((row) => row[colIndex])
-    )
+    if (nums.length === 1) {
+      break
+    }
   }
 
-  return parseInt(remainingNumbers.flatMap((row) => row).join(''), 2)
+  return parseInt(nums[0], 2)
 }
 
 export const part1 = (input = parsedData) => {
-  const gammaRate = rotateMatrix(input).map((num) => findCommonBit(num).bit)
-  const epsilonRate = gammaRate.map((bit) => (bit === '1' ? '0' : '1'))
-  return parseInt(gammaRate.join(''), 2) * parseInt(epsilonRate.join(''), 2)
+  const rates = ['', '']
+
+  for (let i = 0; i < input[0].length; i++) {
+    const [zeroCount, oneCount] = countBit(input, i)
+
+    const gammaeRate = oneCount > zeroCount ? '1' : '0'
+    rates[0] += gammaeRate
+
+    const epsilonRate = oneCount < zeroCount ? '1' : '0'
+    rates[1] += epsilonRate
+  }
+
+  return parseInt(rates[0], 2) * parseInt(rates[1], 2)
 }
 
 export const part2 = (input = parsedData) => {
-  const oxygenNumber = getSingleNumber(input, 'most', '1')
-  const co2Number = getSingleNumber(input, 'least', '0')
-  return oxygenNumber * co2Number
+  return counter(input, 1, 0) * counter(input, 0, 1)
 }
 
 export default {
