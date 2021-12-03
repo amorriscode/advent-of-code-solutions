@@ -37,3 +37,6 @@ export function modulo(x, m) {
   while (x < 0) x += m
   return x % m
 }
+
+export const rotateMatrix = (matrix) =>
+  matrix[0].map((_, colIndex) => matrix.map((row) => row[colIndex]))
