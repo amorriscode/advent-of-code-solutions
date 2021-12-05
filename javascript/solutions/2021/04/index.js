@@ -14,13 +14,7 @@ export const inputParser = (input) => {
       continue
     }
 
-    const rowNumbers = inputRows[i].split(' ').filter(Boolean)
-    const boardRow = {}
-    for (let j = 0; j < rowNumbers.length; j++) {
-      boardRow[j] = { value: parseInt(rowNumbers[j]), called: false }
-    }
-
-    board.push(boardRow)
+    board.push(inputRows[i].split(' ').filter(Boolean).map(Number))
   }
 
   return [numbers, boards]
@@ -30,9 +24,14 @@ const parsedData = inputParser(example)
 
 const markCalled = (board, numberCalled) => {
   board.forEach((row, rowIndex) => {
-    Object.values(row).forEach(({ value }, columnIndex) => {
+    row.forEach((value, colIndex) => {
       if (value === numberCalled) {
-        board[rowIndex][columnIndex].called = true
+        board[rowIndex][colIndex] *= -1
+
+        // Stupid -0 hack?
+        if (board[rowIndex][colIndex] === 0) {
+          board[rowIndex][colIndex] = -0
+        }
       }
     })
   })
@@ -41,17 +40,15 @@ const markCalled = (board, numberCalled) => {
 const checkBoardWin = (board) => {
   const colSeenCount = {}
 
-  const hasWinningRow = board.some((row) =>
-    Object.values(row).every(({ called }) => called)
-  )
+  const hasWinningRow = board.some((row) => row.every((value) => value < 0))
 
-  board.forEach((row) =>
-    Object.values(row).forEach(({ called, value }, colIndex) => {
-      if (called) {
-        colSeenCount[colIndex] = (colSeenCount[colIndex] || 0) + 1
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      if (board[row][col] < 0 || board[row][col] === -0) {
+        colSeenCount[col] = (colSeenCount[col] || 0) + 1
       }
-    })
-  )
+    }
+  }
 
   return (
     hasWinningRow ||
@@ -63,8 +60,8 @@ const calculateScore = (board) => {
   let score = 0
 
   board.forEach((row) => {
-    Object.values(row).forEach(({ value, called }) => {
-      if (!called) {
+    row.forEach((value) => {
+      if (value > 0) {
         score += value
       }
     })
