@@ -2,7 +2,7 @@ import { example, data } from './input'
 
 export const inputParser = (input) => input.split('\n')
 
-const parsedData = inputParser(input)
+const parsedData = inputParser(example)
 
 export const part1 = (input = parsedData) => {
   return
