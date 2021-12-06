@@ -89,8 +89,8 @@ export const part1 = (input = parsedData) => {
 
 export const part2 = (input = parsedData) => {
   const [numbers, boards] = input
-  const winningBoardScores = []
   const winningBoards = new Set()
+  let mostRecentWinningScore = 0
 
   for (const number of numbers) {
     for (const [boardId, board] of boards.entries()) {
@@ -99,12 +99,12 @@ export const part2 = (input = parsedData) => {
 
       if (hasWon && !winningBoards.has(boardId)) {
         winningBoards.add(boardId)
-        winningBoardScores.push(calculateScore(board) * number)
+        mostRecentWinningScore = calculateScore(board) * number
       }
     }
   }
 
-  return winningBoardScores[winningBoardScores.length - 1]
+  return mostRecentWinningScore
 }
 
 export default {
