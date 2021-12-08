@@ -1,11 +1,11 @@
-export function product(arr) {
+export const product = (arr) => {
   return arr.reduce((a, b) => a * b)
 }
 
 // Modular multiplicative inverse
 // https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
 // x where `ax % m == 1`
-export function bigIntModMulInverse(a, m) {
+export const bigIntModMulInverse = (a, m) => {
   let b = a % m
 
   for (let i = 1n; i < m; ++i) {
@@ -20,7 +20,7 @@ export function bigIntModMulInverse(a, m) {
 // Chinese remainder theorem
 // https://en.wikipedia.org/wiki/Chinese_remainder_theorem
 // x where `x % Ni == Ai` for all i
-export function bigIntChineseRemainder(A, N) {
+export const bigIntChineseRemainder = (A, N) => {
   let prod = product(N)
   let p
   let sum = 0n
@@ -33,10 +33,12 @@ export function bigIntChineseRemainder(A, N) {
   return sum % prod
 }
 
-export function modulo(x, m) {
+export const modulo = (x, m) => {
   while (x < 0) x += m
   return x % m
 }
 
 export const rotateMatrix = (matrix) =>
   matrix[0].map((_, colIndex) => matrix.map((row) => row[colIndex]))
+
+export const sum = (arr) => arr.reduce((a, b) => a + b, 0)
