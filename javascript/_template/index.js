@@ -1,4 +1,4 @@
-import { example, data } from './input'
+import { example } from './input'
 
 export const inputParser = (input) => input.split('\n')
 
