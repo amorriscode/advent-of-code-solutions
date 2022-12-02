@@ -1,7 +1,12 @@
 #!/bin/sh
 
-# Make a new directory
+# Make solution directory
 mkdir -p ./solutions/$YEAR/$DAY
+
+# Make input files
+mkdir -p ./inputs/$YEAR/$DAY
+touch ./inputs/$YEAR/$DAY/input.txt
+touch ./inputs/$YEAR/$DAY/example.txt
 
 # Copy the template files over
 cp -r ./_template/ ./solutions/$YEAR/$DAY/

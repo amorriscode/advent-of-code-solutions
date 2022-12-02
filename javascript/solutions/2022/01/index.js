@@ -1,6 +1,4 @@
-import { example, data } from './input'
-
-export const inputParser = (input) =>
+export const parseInput = (input) =>
   input
     .split('\n\n')
     .map((r) => {
@@ -9,13 +7,11 @@ export const inputParser = (input) =>
     })
     .sort((a, b) => b - a)
 
-const parsedData = inputParser(example)
-
-export const part1 = (input = parsedData) => {
+export const part1 = (input) => {
   return input[0]
 }
 
-export const part2 = (input = parsedData) => {
+export const part2 = (input) => {
   return input.slice(0, 3).reduce((acc, curr) => acc + curr)
 }
 

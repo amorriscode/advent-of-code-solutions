@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 export const example = `1000
 2000
@@ -16,4 +17,8 @@ export const example = `1000
 10000`
 
 export const getInput = async () =>
-  await fs.readFileSync('../input/2022/day1.txt').toString()
+  await fs
+    .readFileSync(
+      path.resolve(process.env.NODE_PATH, 'inputs/2022/01/input.txt')
+    )
+    .toString()
