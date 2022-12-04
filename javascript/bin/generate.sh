@@ -23,7 +23,7 @@ if [[ -n $ADVENT_OF_CODE_SESSION ]]
 then
   echo "Attempting to download input from API..."
   DAY_WITHOUT_ZERO=$(echo $DAY | sed 's/^0*//')
-  curl -b session=$ADVENT_OF_CODE_SESSION https://adventofcode.com/${YEAR}/day/${DAY_WITHOUT_ZERO}/input > ./inputs/$YEAR/$DAY/input2.txt || echo "Failed to download input from Advent of Code!"
+  curl -b session=$ADVENT_OF_CODE_SESSION https://adventofcode.com/${YEAR}/day/${DAY_WITHOUT_ZERO}/input > ./inputs/$YEAR/$DAY/input.txt || echo "Failed to download input from Advent of Code!"
 fi
 
 # If the input download failed for some reason, write an empty file
