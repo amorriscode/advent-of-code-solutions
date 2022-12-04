@@ -11,8 +11,6 @@ then
   source $ENV_PATH
 fi
 
-echo $ADVENT_OF_CODE_SESSION
-
 # Make solution directory
 mkdir -p ./solutions/$YEAR/$DAY
 
