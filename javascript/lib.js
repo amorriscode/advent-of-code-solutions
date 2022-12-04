@@ -42,3 +42,7 @@ export const rotateMatrix = (matrix) =>
   matrix[0].map((_, colIndex) => matrix.map((row) => row[colIndex]))
 
 export const sum = (arr) => arr.reduce((a, b) => a + b, 0)
+
+export const setIntersection = (setA, setB) => {
+  return new Set([...setA].filter((element) => setB.has(element)))
+}
