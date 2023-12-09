@@ -1,4 +1,4 @@
-export const parseInput = (input) => input.split('\n')
+export const parseInput = (input) => input.trim().split('\n')
 
 export const part1 = (input) => {
   return

@@ -1,10 +1,13 @@
 import { setIntersection, sum } from '../../../lib'
 
 export const parseInput = (input) =>
-  input.split('\n').map((row) => {
-    const [_, winningNums, nums] = row.match(/: (.+?) \| (.+)/)
-    return [winningNums.match(/\d+/g), nums.match(/\d+/g)]
-  })
+  input
+    .trim()
+    .split('\n')
+    .map((row) => {
+      const [_, winningNums, nums] = row.match(/: (.+?) \| (.+)/)
+      return [winningNums.match(/\d+/g), nums.match(/\d+/g)]
+    })
 
 export const part1 = (input) => {
   return input.reduce((points, [winningNums, nums]) => {
