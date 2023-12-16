@@ -20,7 +20,7 @@ try {
 
 days.forEach(async (day) => {
   solutions[day] = import(`./solutions/${year}/${day}/index.js`)
-  inputs[day] = import(`./solutions/${year}/${day}/input.js`)
+  inputs[day] = import(`./inputs/${year}/${day}/input.js`)
 })
 
 solve(year, dayToSolve, solutions[dayToSolve], inputs[dayToSolve])
